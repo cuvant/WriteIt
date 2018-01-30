@@ -1,0 +1,22 @@
+.create-post
+  .row
+    .col-md-7.col-sm-7
+      .form-group
+        = image_tag current_user.image.user_avatar, class: "profile-photo-md"
+        %textarea#exampleTextarea.form-control{:cols => "30", :name => "texts", :placeholder => "Write what you wish", :rows => "1"}
+    .col-md-5.col-sm-5
+      .tools
+        %ul.publishing-tools.list-inline
+          %li
+            %a{:href => "#"}
+              %i.ion-compose
+          %li
+            %a{:href => "#"}
+              %i.ion-images
+          %li
+            %a{:href => "#"}
+              %i.ion-ios-videocam
+          %li
+            %a{:href => "#"}
+              %i.ion-map
+        = link_to "Publish", new_micropost_path, class: "btn btn-primary pull-right"

@@ -1,0 +1,12 @@
+if ($("#timeline_followers_count_#{@user.id}").length > 0){
+$("#timeline_followers_count_#{@user.id}").html("#{j render partial: "relationships/followers_count", locals: {followers_count: @followers_count}}");
+}
+$(".display_if_following_#{@user.id}").html("");
+$("#unfollow_button_#{@user.id}").text('Follow').attr('class', 'btn btn-sm follow-button').attr('href', "/#{@user.user_name}/follow_user").attr('id', "follow_button_#{@user.id}");
+
+if ($("#chat-block").length > 0){
+$("#online_user_#{@user.id}").remove();
+if ($(".online-users").children('li').length == 0){
+$("#online-title").html("All following offline");
+$("#online-title").removeClass("title-online").addClass("title-offline");}
+}

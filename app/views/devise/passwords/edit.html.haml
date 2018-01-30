@@ -1,0 +1,32 @@
+.col-sm-6.col-sm-offset-1
+  .reg-form-container
+    .reg-options
+      %ul.nav.nav-tabs
+        %li
+          %a Change Password
+
+    .tab-content
+      .tab-pane.active{id: "reset_password"}
+        %h3 Change Password
+        %p.text-muted In a simple and secure way!
+
+        = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, id: "Login_form" }) do |f|
+          - add_error(resource.errors.full_messages.to_sentence, 'alert') if resource.errors.present?
+          = f.hidden_field :reset_password_token
+          
+          .row
+            .form-group.col-xs-12
+              %label.sr-only{:for => "new_password"} Email
+              = f.password_field :password, autofocus: true, autocomplete: "off", placeholder: "New Password", class: "form-control input-group-lg", title: "New Password"
+              
+          .row
+            .form-group.col-xs-12
+              %label.sr-only{:for => "password_confirmation"} Email
+              = f.password_field :password_confirmation, autofocus: true, autocomplete: "off", placeholder: "Confirm New Password", class: "form-control input-group-lg", title: "New Password"
+          
+          %br
+          %bt
+          %p
+          = f.submit "Change my password", class: "btn btn-primary"
+          = link_to "Log In", new_user_session_path, class: "btn btn-primary pull-right"
+          

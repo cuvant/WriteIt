@@ -1,0 +1,16 @@
+- if current_user == @user
+  = render partial: "microposts/form"
+- else
+  .create-post
+
+.microposts{id: "my-microposts"}
+  = render "shared/flash_notice"
+  = render @microposts
+
+.pagi_di{id: "infinite-scrolling"}
+  = will_paginate @microposts
+
+#delete_comment
+:javascript
+  window.writeit.microposts.use_mentioner("#{current_user.id}");
+  window.writeit.scrolling.inf();

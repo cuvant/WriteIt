@@ -1,0 +1,36 @@
+<%= form_for @micropost, validate: true do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="input-group">
+    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-share"></i></span>
+    <%= f.text_field :title, placeholder: "Post title... (required)", class:"form-control"  %>
+  </div>
+  <div class="input-group">
+    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-map-marker"></i></span>
+    <%= f.text_field :street, placeholder: "Street... (required)", class:"form-control" %>
+  </div>
+  <div class="input-group">
+    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-map-marker"></i></span>
+    <%= f.text_field :number, placeholder: "Number...", class:"form-control" %>
+  </div>
+  <div class="input-group">
+    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-map-marker"></i></span>
+    <%= f.text_field :city, placeholder: "City... (required)", class:"form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.text_area :description, placeholder: "Compose new micropost...", class:"form-control" %>
+  </div>
+  <span class="picture">
+  <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
+  </span>
+  <div>
+    <%= f.submit "Post", class: "btn btn-primary" %>
+  </div>
+<% end %>
+<script type="text/javascript">
+  $('#micropost_picture').bind('change', function() {
+    var size_in_megabytes = this.files[0].size/1024/1024;
+    if (size_in_megabytes > 5) {
+      alert('Maximum file size is 5MB. Please choose a smaller file.');
+    }
+  });
+</script>

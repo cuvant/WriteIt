@@ -1,0 +1,11 @@
+-provide(:title, "Home")
+.jumbotron
+  .container.landing-header
+  %center
+    %h1 Welcome to WriteIt
+    %h2
+      This is the home page for the WriteIt Community.
+    -if signed_in?
+      = link_to "Check timeline!", microposts_path, class: "btn btn-info"
+    -else
+      = link_to "Sign up now!", new_user_registration_path, class: "btn btn-success"

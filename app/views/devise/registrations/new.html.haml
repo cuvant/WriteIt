@@ -1,0 +1,37 @@
+.col-sm-6.col-sm-offset-1
+  .reg-form-container
+    .reg-options
+      %ul.nav.nav-tabs
+        %li
+          %a Registration
+
+    = form_for(resource, as: resource_name, url: registration_path(resource_name), html: {id: "registration_form", class: "form-inline", name: "registration_form", multipart: true}, :validate => true) do |f|
+      -# - add_error(resource.errors.full_messages.to_sentence, 'alert') if resource.errors.present?
+      
+      .row
+        .form-group.col-xs-6
+          %label.sr-only{:for => "firstname"} First Name
+          = f.text_field :first_name, required: true, autofocus: true, placeholder: "First Name", autocomplete: "off", class: "form-control input-group-lg", title: "Enter first name"
+        .form-group.col-xs-6
+          %label.sr-only{:for => "lastname"} Last Name
+          = f.text_field :last_name, placeholder: "Last Name", autocomplete: "off", class: "form-control input-group-lg", title: "Enter last name"
+      
+      .row
+        .form-group.col-xs-12
+          %label.sr-only{:for => "username"} Username
+          = f.text_field :user_name, autocomplete: "off", placeholder: "Username", class: "form-control input-group-lg"
+      
+      .row
+        .form-group.col-xs-12
+          %label.sr-only{:for => "email"} Email
+          = f.email_field :email, placeholder: "#{t ".email"}", class: "form-control input-group-lg"
+      
+      .row
+        .form-group.col-xs-12
+          %label.sr-only{:for => "password"} Password
+          = f.password_field :password, required: true, autocomplete: "off", placeholder: "#{t ".password"}", class: "form-control input-group-lg"
+      
+
+      %p
+      = f.submit "Register Now", class: "btn btn-primary"
+      = link_to "Log In", new_user_session_path, class: "btn btn-primary pull-right"

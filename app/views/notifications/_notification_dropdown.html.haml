@@ -1,0 +1,19 @@
+-# %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#{notifications_path}", :format => "js", :role => "button"}
+-#   %span{id:"notifications-counter"}=current_user.notifications.ordered.count
+-#   %span.glyphicon.glyphicon-flag
+-# 
+-# %ul.dropdown-menu.notifications
+-#   %li.dropdown-header.text-center Notifications
+-#   = render current_user.notifications.ordered.limit(5)
+-# 
+-#   %li.text-center= link_to 'View All', notifications_path
+
+
+= link_to notifications_path, remote:true, "data-toggle": "dropdown", "aria-expanded": "false", "aria-haspopup": "true", role: "button", class: "dropdown-toggle" do
+  %span{id:"notifications-counter"}=current_user.notifications.navbar_count(current_user.id)
+  %span.glyphicon.glyphicon-flag{class: "navbar_margin"}
+%ul.dropdown-menu.notifications
+  %li.dropdown-header.text-center Notifications
+  -# = render current_user.notifications.ordered.limit(5)
+
+  %li.text-center= link_to 'View All', notifications_path

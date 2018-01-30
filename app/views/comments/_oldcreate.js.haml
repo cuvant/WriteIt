@@ -1,0 +1,2 @@
+$('#comments_#{@micropost.id}').append("#{j render 'comments/comment', micropost: @micropost, comment: @comment }");
+$('#comment_content_#{@micropost.id}').val('');

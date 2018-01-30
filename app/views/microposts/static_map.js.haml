@@ -1,0 +1,8 @@
+$("#static_map_index").html("#{j render partial: 'microposts/static_map_modal', locals: { micropost: @micropost}}");
+$("#static_map_index").removeClass('hidden');
+$("#staticMap-modal").modal('show');
+$("#staticMap-modal").on('shown.bs.modal', function () {
+$(".iradio_square-green.checked").removeClass("checked");
+});
+$(document).ready(window.ready);
+$(document).on("page:load", window.ready);

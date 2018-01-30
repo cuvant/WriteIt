@@ -1,0 +1,12 @@
+.microposts{id: "my-microposts"}
+  = render "shared/flash_notice"
+  = render @microposts
+
+.pagi_di{id: "infinite-scrolling"}
+  = will_paginate
+
+#delete_comment
+#static_map_index
+:javascript
+  window.writeit.microposts.use_mentioner("#{current_user.id}");
+  window.writeit.scrolling.inf();

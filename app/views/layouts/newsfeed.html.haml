@@ -1,0 +1,44 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title= full_title(yield(:title))
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = action_cable_meta_tag
+    = csrf_meta_tags
+    = favicon_link_tag 'favicon.ico'
+
+    = render 'layouts/header'
+  %body
+    -# - flash.each do |name, msg|
+    -#   = content_tag(:div, msg, class: "alert alert-info")
+    #page-contents
+      .container
+        .row
+
+          .col-md-3.static
+            = render partial: "layouts/newsfeed/sidebar_left/profile_card"
+            = render partial: "layouts/newsfeed/sidebar_left/links"
+            = render partial: "layouts/newsfeed/sidebar_left/chat_block"
+
+          .col-md-7
+
+            - if params[:controller] == "microposts" && params[:action] == "index"
+              = render partial: "microposts/form"
+            - else
+              .create-post
+              
+            = yield
+          = render partial: "layouts/newsfeed/sidebar_right/follow_recomandations"
+            
+    -# 
+    -# #spinner-wrapper
+    -#   .spinner
+    
+    -# = javascript_include_tag "theme_script.js", 'data-turbolinks-track' => true
+    -# = javascript_include_tag "cable.js", 'data-turbolinks-track' => false
+    = audio_tag "notification_sound.mp3", id: "sound-play", class: "audio-to-play"
+    
+    :javascript
+      var currentUser = "#{current_user.id}"

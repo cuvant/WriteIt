@@ -1,0 +1,54 @@
+.timeline-cover{style: "background: url(#{@user.timeline_cover}) no-repeat;"}
+  / Timeline Menu for Large Screens
+  .timeline-nav-bar.hidden-sm.hidden-xs
+    .row
+      .col-md-3
+        .profile-info
+          = image_tag @user.image.user_avatar, class: "img-responsive profile-photo"
+          %h3= @user.user_name
+          %p.text-muted= @user.bio
+      .col-md-9
+        %ul.list-inline.profile-menu
+          %li
+            = link_to "Timeline", profile_path(@user.user_name), class: nav_is_active("timeline")
+          %li
+            %a{:href => "timeline-about.html"} About
+          %li
+            %a{:href => "timeline-album.html"} Album
+          %li
+            %a{:href => "timeline-friends.html"} Friends
+        
+        %ul.follow-me.list-inline
+          %li{id: "timeline_followers_count_#{@user.id}"}= render partial: "relationships/followers_count", locals: {followers_count: @user.followers.count}
+          - if current_user == @user
+            %li
+              = form_for @user, method: :patch, html: {id: "edit_timeline_cover_image"} do |f|
+                = f.file_field :timeline_cover, accept: 'image/jpeg,image/gif,image/png'
+          - else
+            %li
+              - if current_user_is_following(current_user.id, @user.id)
+                = link_to 'Following', unfollow_user_path, remote: true, class: 'btn btn-sm unfollow-button', id: "unfollow_button_#{@user.id}", method: :post
+              - else
+                = link_to 'Follow', follow_user_path, remote: true, class: 'btn btn-sm follow-button', id: "follow_button_#{@user.id}", method: :post
+
+  / Timeline Menu for Large Screens End
+  / Timeline Menu for Small Screens
+  .navbar-mobile.hidden-lg.hidden-md
+    .profile-info
+      = image_tag @user.image.user_avatar, class: "img-responsive profile-photo"
+      %h4= @user.user_name
+      %p.text-muted= @user.bio
+    .mobile-menu
+      %ul.list-inline
+        %li
+          %a.active{:href => "timline.html"} Timeline
+        %li
+          %a{:href => "timeline-about.html"} About
+        %li
+          %a{:href => "timeline-album.html"} Album
+        %li
+          %a{:href => "timeline-friends.html"} Friends
+      %button.btn-primary Add Friend
+  / Timeline Menu for Small Screens End
+:javascript
+  $("#edit_timeline_cover_image").fileupload();

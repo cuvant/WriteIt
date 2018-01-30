@@ -1,0 +1,11 @@
+.post-comment{id: "micropost_#{micropost.id}_comment_#{comment.id}"}
+  = image_tag comment.user.image.user_avatar, class: "profile-photo-sm"
+  %p
+    = raw "#{link_to comment.user.user_name, profile_path(comment.user.user_name)}"
+    
+    .comment-content
+      = raw comment.content
+
+    - if comment.user == current_user
+      = link_to delete_comment_micropost_comment_path(micropost, comment), remote: true do
+        %span(class="glyphicon glyphicon-remove delete-comment-link")

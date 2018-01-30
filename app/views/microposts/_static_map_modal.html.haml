@@ -1,0 +1,20 @@
+#staticMap-modal.modal.fade.hmodal-danger{"aria-hidden" => "true", :role => "dialog", :style => "display: none;", :tabindex => "-1"}
+  .modal-dialog.modal-lg
+    .modal-content
+      .color-line
+      .modal-header.set-padding-top-10.set-padding-bottom-10
+        %h4.modal-title{style: "text-align: left;"}
+          Followers
+      .modal-body
+        = raw "Location: <strong>#{micropost.full_street_address}</strong>"
+        %h3.text-center
+          = static_map_for(micropost)
+        %br
+        = render partial: "microposts/near_microposts", locals: {locations: @locations, location: @location}
+        .text-center
+          %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Check feed
+
+:javascript
+  $('#staticMap-modal').on('hidden.bs.modal', function (e) {
+    $(this).remove();
+  });

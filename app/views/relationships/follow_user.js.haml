@@ -1,0 +1,12 @@
+if ($("#timeline_followers_count_#{@user.id}").length > 0){
+$("#timeline_followers_count_#{@user.id}").html("#{j render partial: "relationships/followers_count", locals: {followers_count: @followers_count}}");
+}
+$(".display_if_following_#{@user.id}").html("following");
+
+$("#follow_button_#{@user.id}").attr('class', 'btn btn-sm unfollow-button').text('Following').attr('href', "/#{@user.user_name}/unfollow_user").attr('id', "unfollow_button_#{@user.id}");
+
+- if @is_online
+  if ($("#chat-block").length > 0){
+  if($(".online-users").children('li').length == 0){$("#online-title").html("Online followings");$("#online-title").removeClass("title-offline").addClass("title-online");}
+  $(".online-users").append("#{j render partial: 'layouts/newsfeed/sidebar_left/online_user', locals: { online_user: @user}}");
+  }

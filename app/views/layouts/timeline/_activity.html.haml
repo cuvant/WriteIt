@@ -1,0 +1,6 @@
+.feed-item
+  .live-activity
+    %p
+      = link_to @user.first_name, profile_path(@user.user_name), class: "profile-link"
+      = display_activity(activity[0])
+    %p.text-muted= time_ago_in_words(activity[1])

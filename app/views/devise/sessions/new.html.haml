@@ -1,0 +1,72 @@
+.col-sm-6.col-sm-offset-1
+  .reg-form-container
+    .reg-options
+      %ul.nav.nav-tabs
+        %li
+          %a{"data-toggle" => "tab", :href => "#register"} Register
+        %li.active
+          %a{"data-toggle" => "tab", :href => "#login"} Login
+
+    .tab-content.no-overflow
+      .tab-pane{id: "register"}
+        %h3 Register Now !!!
+        %p.text-muted Be cool and join today. Find out the hottest places around you!
+        
+        = form_for(resource, as: resource_name, url: registration_path(resource_name), :validate => true, html: {id: "registration_form", class: "form-inline", name: "registration_form", multipart: true}) do |f|
+          - add_error(resource.errors.full_messages.to_sentence, 'alert') if resource.errors.present?
+
+          .row
+            .form-group.col-xs-6
+              %label.sr-only{:for => "firstname"} First Name
+              = f.text_field :first_name, required: true, autofocus: true, placeholder: "First Name", autocomplete: "off", class: "form-control input-group-lg", id: "firstname", title: "Enter first name"
+            .form-group.col-xs-6
+              %label.sr-only{:for => "lastname"} Last Name
+              = f.text_field :last_name, required: true, autofocus: true, placeholder: "Last Name", autocomplete: "off", class: "form-control input-group-lg", id: "lastname", title: "Enter last name"
+          
+          .row
+            .form-group.col-xs-12
+              %label.sr-only{:for => "username"} Username
+              = f.text_field :user_name, autofocus: true, required: true, autocomplete: "off", placeholder: "Username", class: "form-control input-group-lg", id: "username"
+          
+          .row
+            .form-group.col-xs-12
+              %label.sr-only{:for => "email"} Email
+              = f.email_field :email, required: true, autofocus: true, autocomplete: "off", placeholder: "Your Email", class: "form-control input-group-lg", id: "new-email"
+          .row
+            .form-group.col-xs-12
+              %label.sr-only{:for => "password"} Password
+              = f.password_field :password, required: true, autocomplete: "off", placeholder: "#{t ".password"}", class: "form-control input-group-lg", id: "password"
+          
+
+          %p
+          = f.submit "Register Now", class: "btn btn-primary"
+
+      / Login
+      #login.tab-pane.active
+        %h3 Login
+        %p.text-muted Log into your account
+        = form_for(resource, as: resource_name, url: session_path(resource_name), html: { id: 'Login_form', class: "form-inline", name: "login_form", multipart: true}) do |f|
+          - add_error(resource.errors.full_messages.to_sentence, 'alert') if resource.errors.present?
+          .row
+            .form-group.col-xs-12
+              %label.sr-only{:for => "my-email"} Email
+              = f.email_field :email, required: true, autofocus: true, autocomplete: "off", placeholder: "Your Email", class: "form-control input-group-lg", id: "log-in-email", title: "Enter Email"
+          .row
+            .form-group.col-xs-12
+              %label.sr-only{:for => "my-password"} Password
+              = f.password_field :password, required: true, autocomplete: "off", placeholder: "Password", class: "form-control input-group-lg", id: "my_password"
+      
+          %p
+            %a= link_to "Forgot Password?", new_password_path(resource_name), data: { no_turbolink: true }
+            - if devise_mapping.confirmable? && controller_name != 'confirmations'
+              = "    |    "
+              %a= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name), data: { no_turbolink: true }
+          
+          = f.submit "Login Now", class: "btn btn-primary"
+          
+:javascript
+  $(document).on('turbolinks:load', function() {
+    $("#registration_form").enableClientSideValidations();
+  });
+
+  

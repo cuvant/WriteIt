@@ -1,0 +1,78 @@
+- provide(:title, "Edit")
+.row{style: "margin-top: 100px;"}
+  %h4{style: "text-align: center; margin-bottom: 30px;"}
+    = "Edit Account"
+    = render "shared/flash_notice"
+  = form_for @user, html: {multipart: true }, validate: true do |f|
+    - add_error(@user.errors.full_messages.to_sentence, 'alert') if @user.errors.any?
+
+    .form-group.input-group.input-group-lg
+      %span.input-group-addon
+        %i.fa.fa-user
+      = f.email_field :email, autofocus: true, placeholder: "#{t ".email"}", autocomplete: "off", class: "form-control"
+      
+    .form-group.input-group.input-group-lg
+      %span.input-group-addon
+        %i.fa.fa-user
+      = f.text_field :user_name, autofocus: true, placeholder: "User Name", autocomplete: "off", class: "form-control"
+
+    .form-group.input-group.input-group-lg
+      %span.input-group-addon
+        %i.fa.fa-user
+      = f.text_field :first_name, autofocus: true, placeholder: "First Name", autocomplete: "off", class: "form-control"
+
+    .form-group.input-group.input-group-lg
+      %span.input-group-addon
+        %i.fa.fa-user
+      = f.text_field :last_name, autofocus: true, placeholder: "Last Name", autocomplete: "off", class: "form-control"
+
+    .form-group.input-group.input-group-lg
+      %span.input-group-addon
+        %i.fa.fa-lock
+      = f.password_field :password, autocomplete: "off", placeholder: "#{t ".new_password"}", class: "form-control"
+
+    .form-group.input-group.input-group-lg
+      %span.input-group-addon
+        %i.fa.fa-lock
+      = f.password_field :password, autocomplete: "off", placeholder: "#{t ".confirm_new_password"}", class: "form-control"
+      
+    .form-group.input-group.input-group-lg
+      %span.input-group-addon
+        %i.fa.fa-address-card
+      = f.text_area :bio, autocomplete: "off", placeholder: "Bio", class: "form-control"
+
+    .form-group
+      .fileupload.fileupload-new{data: {provides: 'fileupload' }}
+        .fileupload-preview.thumbnail.thumb-preview{style: "width: 80px; height: 77px"}
+          - if @user.try(:image).present?
+            = image_tag @user.image
+          - else
+            = image_tag "fallback/user.gif"
+        %div
+          %span.btn.btn-file.btn-default.btn-sm
+            %span.fileupload-new
+              %span.glyphicon.glyphicon-picture
+              = t ".image"
+            %span.fileupload-exists
+              %span.glyphicon.glyphicon-open
+              = t '.change'
+            = f.file_field :image
+          = link_to "#", class: "btn fileupload-exists btn-danger btn-sm", data: {dismiss: 'fileupload'} do
+            %span.glyphicon.glyphicon-remove
+            = t '.remove'
+
+    - if @user.try(:image).present?
+      .form-group
+        .checkbox
+          %label
+            = f.check_box :remove_image
+            = t ".remove_image"
+
+    .form-group
+      = f.submit (t ".button_update"), class: "btn btn-success full-width"
+
+    .form-group
+      = link_to (t ".button_sign_out"), signout_path, class: "btn btn-default"
+
+:javascript
+  $("#edit_user_#{@user.id}").enableClientSideValidations();

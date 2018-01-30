@@ -1,0 +1,8 @@
+$("#following_users").html("#{j render partial: 'users/followers', locals: { users: @users, users_type: "Followers"}}");
+$("#following_users").removeClass('hidden');
+$("#users-modal").modal('show');
+$("#users-modal").on('shown.bs.modal', function () {
+$(".iradio_square-green.checked").removeClass("checked");
+});
+$(document).ready(window.ready);
+$(document).on("page:load", window.ready);

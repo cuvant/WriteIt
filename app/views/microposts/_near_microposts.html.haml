@@ -1,0 +1,18 @@
+-# %strong Nearby locations
+-# - if locations.present?
+-#   %ul
+-#     - for location in location.nearbys(10)
+-#       %li
+-#         = link_to location.full_street_address, micropost_path(location)
+-#         (#{location.distance.round(2)} km)
+-# = "link to nerby locations"
+
+- if locations.present?
+  #set_widht{style: "text-align:center;"}
+    %strong Nearby locations
+    .list-group
+      - for location in locations
+        %a.list-group-item.list-group-item-action{:href => "#{micropost_path(location)}"}
+          %h5.list-group-item-heading= "#{location.title}"
+          %p.list-group-item-text= "#{location.full_street_address} (#{location.distance.round(2)} KM)"
+          %p.list-group-item-text= "#{location.description}"

@@ -1,0 +1,22 @@
+#users-modal.modal.fade.hmodal-danger{"aria-hidden" => "true", :role => "dialog", :style => "display: none;", :tabindex => "-1"}
+  .modal-dialog.modal-lg
+    .modal-content
+      .color-line
+      .modal-header.set-padding-top-10.set-padding-bottom-10
+        %h4.modal-title{style: "text-align: left;"}
+          = users_type
+      .modal-body
+        %h3.text-center
+        %br
+        %ul
+          - users.each do |user|
+            %li
+              = image_tag user.image, size: "100x100"
+              = link_to "#{user.first_name} #{user.last_name}", profile_path(user.user_name)
+        .text-center
+          %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Check feed
+
+:javascript
+  $('#users-modal').on('hidden.bs.modal', function (e) {
+    $(this).remove();
+  });

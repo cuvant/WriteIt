@@ -1,0 +1,6 @@
+.follow-user
+  = image_tag follow_user.image.user_avatar, class: "profile-photo-sm pull-left"
+  %div
+    %h5
+      = link_to follow_user.user_name, profile_path(follow_user.user_name)
+    = link_to 'Follow', follow_user_path(user_name: follow_user.user_name, newsfeed: true), remote: true, method: :post, class: 'btn btn-sm follow-button', id: "follow_button_#{follow_user.id}"

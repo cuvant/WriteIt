@@ -1,0 +1,36 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title= full_title(yield(:title))
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = action_cable_meta_tag
+    = csrf_meta_tags
+    = favicon_link_tag 'favicon.ico'
+
+    = render 'layouts/header'
+  %body
+    -# - flash.each do |name, msg|
+    -#   = content_tag(:div, msg, class: "alert alert-info")
+    .container
+      .timeline
+        = render partial: "layouts/timeline/timeline_cover"
+        #page-contents
+          .row
+            .col-md-3
+            .col-md-7
+              = yield
+            
+            = render partial: "layouts/timeline/activity_content" 
+    -# #spinner-wrapper
+    -#   .spinner
+    -# 
+    
+    -# TODO check for solution, how to stream on specific pages (use action cable)
+    -# We don't want to stream on pages that user does not require authentification
+    -# = javascript_include_tag "cable.js", 'data-turbolinks-track' => false
+    = audio_tag "notification_sound.mp3", id: "sound-play", class: "audio-to-play"
+    
+    :javascript
+      var currentUser = "#{current_user.id}"

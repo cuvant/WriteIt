@@ -1,0 +1,4 @@
+%li{id: "online_user_#{online_user.id}"}
+  = link_to profile_path(online_user.user_name) do
+    = image_tag online_user.image.user_avatar, class: "img-responsive profile-photo"
+    %span.online-dot

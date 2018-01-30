@@ -1,0 +1,8 @@
+$("#delete_comment").html("#{j render partial: 'comments/delete_comment', locals: {comment: @comment, micropost: @micropost}}");
+$("#delete_comment").removeClass('hidden');
+$("#deleteComment-modal").modal('show');
+$("#deleteComment-modal").on('shown.bs.modal', function () {
+$(".iradio_square-green.checked").removeClass("checked");
+});
+$(document).ready(window.ready);
+$(document).on("page:load", window.ready);

@@ -1,0 +1,5 @@
+$('#deleteComment-modal').modal('hide');
+-# $('body').removeClass('modal-open');
+$('.modal-backdrop').remove();
+$('#comments_#{@micropost.id}').html("#{j render @micropost.comments, micropost: @micropost, comment: @comment}");
+Append.comment_count -= 1;

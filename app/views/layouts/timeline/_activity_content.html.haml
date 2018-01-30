@@ -1,0 +1,9 @@
+.col-md-2.static
+  #sticky-sidebar
+    - if @activities.present?
+      %h4.grey
+        = "#{@user.first_name}'s activity" 
+      = render partial: "layouts/timeline/activity", collection: @activities
+    - elsif current_user.id != @user.id
+      %h4.grey
+        = "No recent activities"

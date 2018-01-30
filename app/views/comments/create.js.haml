@@ -1,0 +1,33 @@
+- if @result == true
+  $("#comment_content_#{@micropost.id}").val('');
+  $("#comment_content_#{@micropost.id}").blur();
+  -# 
+  -# Append.comment_count += 1;
+  -# $(Append.id).attr('data-value', Append.comment_count);
+  -# 
+  -# if (Append.comment || Append.open){
+  
+  $("#comments_#{@micropost.id}").append("#{j render 'comments/comment', micropost: @micropost, comment: @comment}"); 
+  
+  -# } else if ((Append.comment && Append.open) === false && Append.link === true) {
+  -# 
+  -# $('#comments_' + Append.micropost_id).append("<div class='paginator' id='#comments-paginator-" + Append.micropost_id + "'><a class='more-comments' id='more_comments_" + Append.micropost_id + "' data-micropost-id='" + Append.micropost_id + "' data-type='html' data-remote='true' data-value='" + Append.comment_count + "' href='/microposts/" + Append.micropost_id + "/comments'>view all " + Append.comment_count + " comments</a></div>"); 
+  -# ClickableCommentsLink();
+  -# 
+  -# } else if ((Append.comment && Append.open && Append.link) === false) {
+  -# 
+  -# $("#more_comments_#{@micropost.id}").html("view all #{@micropost.comments.count} comments");
+  -# 
+  -# }
+
+- else
+  $("#comment_error_#{@micropost.id}").html("#{escape_javascript(render("shared/flash_notice"))}");
+  $("#comment_error_#{@micropost.id}").removeClass('hidden');
+  
+  if((".flash_notice:visible").length > 0){
+  
+  $(".alert").fadeOut(7000, function() {  
+  $(".alert").remove();
+  
+  });
+  }

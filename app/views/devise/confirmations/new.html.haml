@@ -1,0 +1,25 @@
+.col-sm-6.col-sm-offset-1
+  .reg-form-container
+    .reg-options
+      %ul.nav.nav-tabs
+        %li
+          %a Resend Confirmation
+
+    .tab-content
+      .tab-pane.active{id: "reset_password"}
+        %h3 Resend Confirmation
+        %p.text-muted In a simple and secure way!
+
+        = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, id: "Login_form" }) do |f|
+          - add_error(resource.errors.full_messages.to_sentence, 'alert') if resource.errors.present?
+          
+          .row
+            .form-group.col-xs-12
+              %label.sr-only{:for => "reset_password"} Email
+              = f.email_field :email, autofocus: true, autocomplete: "off", placeholder: "Your Email", class: "form-control input-group-lg", id: "my-email", title: "Enter Email"
+          %br
+          %bt
+          %p
+          = f.submit "Resend Confirmation Instructions", class: "btn btn-primary"
+          = link_to "Log In", new_user_session_path, class: "btn btn-primary pull-right"
+          

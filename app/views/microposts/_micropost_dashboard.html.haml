@@ -1,0 +1,16 @@
+.index-center
+  %h2 Micropost feed
+.posts-wrapper.row
+  -# = render partial: "new_micropost_modal", locals: { micropost: Micropost.new }
+  -# %span{"data-target" => "#test", "data-toggle" => "modal", style: "cursor: pointer; text-decoration: none;", class: "glyphicon glyphicon-plus"}
+  .posts{id: "my-microposts"}
+    = render @microposts
+.pagi_di{id: "infinite-scrolling"}
+  = will_paginate
+#delete_comment.hidden
+#aditional_micropost.hidden
+#edit_micropost.hidden
+#static_map_index.hidden
+:javascript
+  window.writeit.scrolling.inf();
+  window.writeit.microposts.more_comments();

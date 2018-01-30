@@ -1,0 +1,3 @@
+$('#like_#{@micropost.id}').removeClass().addClass("like glyphicon glyphicon-heart-empty");
+$('#like_#{@micropost.id}').attr("href", "#{like_micropost_path(@micropost.id)}")
+$("#likes_#{@micropost.id}").html("#{j (render partial: 'microposts/likes', locals: { micropost: @micropost} ) }");

@@ -1,0 +1,62 @@
+.post-content{id: "microposts_#{micropost.id}"}
+  - if params[:controller] == "users"
+    .post-date.hidden-xs.hidden-sm
+      %h5= micropost.user.user_name
+      %p.text-grey= time_ago_in_words micropost.created_at
+
+  = image_tag micropost.picture.micropost_timeline, class: "img-responsive post-image"
+  .post-container
+    = image_tag micropost.user.image.user_avatar, class: "profile-photo-md pull-left"
+    .post-detail
+      .user-info
+        %h5
+          = link_to micropost.user.user_name, profile_path(micropost.user.user_name), class: "profile-link"
+          %span.time-ago= time_ago_in_words micropost.created_at
+          
+          %span.following{class: "display_if_following_#{micropost.user_id}"}
+            - # if current_user is not defined, that means this view is rendered from NewMicropostBrodcastJob
+            - if current_user.blank?
+              following
+            - elsif current_user_is_following(current_user.id, micropost.user_id)
+              following
+              
+        
+        %p.text-muted
+          = render "microposts/likes", micropost: micropost
+
+      .reaction
+        .show-map-link
+          = link_to static_map_micropost_path(micropost), remote: true do
+            %i.ion-map
+        
+        = like_button(micropost)
+      
+      .line-divider
+      
+      .post-text
+        %p
+          = micropost.description
+      .line-divider
+      
+      .comments{id: "comments_#{micropost.id}"}
+        - if micropost.comments.any?
+          = render micropost.comments.first(4), micropost: micropost
+          
+          - unless micropost.comments.count <= 4
+            .paginator{id: "#comments-paginator-#{micropost.id}"}
+              = link_to "view all #{micropost.comments.count} comments", micropost_comments_path(micropost), remote: true, class: 'more-comments', id: "more_comments_#{micropost.id}", data: {micropost_id: "#{micropost.id}", type: "html", value: "#{micropost.comments.count}"}
+        
+        -# #comment_error.hidden{id: "#{micropost.id}", class: ""}
+        
+        .paginator.someone-is-writing{id: "writing_comment_#{micropost.id}"}
+        
+      .post-comment
+        .current-user-image{id: "current_user_image_#{micropost.id}"}
+          - if current_user.present?
+            = link_to (image_tag current_user.image.user_avatar.url, class: "profile-photo-sm"), profile_path(current_user.user_name)
+        = form_for [micropost, micropost.comments.build], remote: true do |f|
+          = f.text_field :content, placeholder: 'Add a comment...', autocomplete: "off", class: "comment_content form-control", id: "comment_content_#{micropost.id}", data: { micropost_id: "#{micropost.id}", value: "#{micropost.comments.count}" }
+          -# %input.form-control{:placeholder => "Post a comment", :type => "text", name:"comment[content]"}
+  
+:javascript
+  window.writeit.micropost_channel.create_micropost_subscription("#{micropost.id}");

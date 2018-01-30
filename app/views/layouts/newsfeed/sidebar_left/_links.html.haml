@@ -1,0 +1,29 @@
+%ul.nav-news-feed
+  %li
+    %i.icon.ion-ios-paper
+    %div
+      = link_to "My Newsfeed", profile_path(current_user.user_name)
+  %li
+    %i.icon.ion-ios-people-outline
+    %div
+      = link_to "Followers", get_followers_user_path(current_user), remote: true
+  %li
+    %i.icon.ion-ios-people
+    %div
+      = link_to "All Users", all_users_users_path, remote: true
+
+  -# %li
+  -#   %i.icon.ion-chatboxes
+  -#   %div
+  -#     %a{:href => "#"} Messages
+  -# %li
+  -#   %i.icon.ion-images
+  -#   %div
+  -#     %a{:href => "#"} Images
+  -# %li
+  -#   %i.icon.ion-ios-videocam
+  -#   %div
+  -#     %a{:href => "#"} Videos
+
+#following_users.hidden
+#all_users.hidden

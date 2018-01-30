@@ -1,0 +1,47 @@
+#newMicropostModal.modal.fade.hmodal-danger{"aria-hidden" => "true", :role => "dialog", :style => "display: none;", :tabindex => "-1"}
+  .modal-dialog.modal-lg
+    .modal-content
+      .color-line
+      .modal-header.set-padding-top-10.set-padding-bottom-10
+        %h4.modal-title{style: "text-align: left;"}
+          New post
+      .modal-body
+        = form_for(micropost) do |f|
+          = render 'shared/error_messages', object: f.object
+          .form-group.col-xs-12{style: "margin-bottom:15px;"}
+            %span#basic-addon1.input-group-addon
+              %i.fa.fa-share
+            = f.text_field :title, placeholder: "Post title... (required)", class:"form-control"
+          .form-group
+            -# .col-xs-3.text-right
+            -#   = "&nbsp;".html_safe
+            .col-xs-4{style: "margin-bottom:15px;"}
+              %span#basic-addon1.input-group-addon
+                %i.fa.fa-map-marker
+              = f.text_field :street, placeholder: "Street... (required)", class:"form-control" 
+            .col-xs-4{style: "margin-bottom:15px;"}
+              %span#basic-addon1.input-group-addon
+                %i.fa.fa-map-marker
+              = f.text_field :number, placeholder: "Number...", class:"form-control"
+            .col-xs-4{style: "margin-bottom:15px;"}
+              %span#basic-addon1.input-group-addon
+                %i.fa.fa-map-marker
+              = f.text_field :city, placeholder: "City... (required)", class:"form-control"
+          .form-group
+            .col-xs-12{style: "margin-bottom:15px;"}
+              = f.text_area :description, placeholder: "Compose new micropost...", class:"form-control"
+            .col-xs-12{style: "margin-bottom:15px;"}
+              %span.picture
+                = f.file_field :picture, accept: 'image/jpeg,image/gif,image/png'
+          %br
+          .text-center
+            = f.submit "Post", class: "btn btn-primary"
+            %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Cancel
+            
+:javascript
+  $('#micropost_picture').bind('change', function() {
+    var size_in_megabytes = this.files[0].size/1024/1024;
+    if (size_in_megabytes > 5) {
+      alert('Maximum file size is 5MB. Please choose a smaller file.');
+    }
+  });

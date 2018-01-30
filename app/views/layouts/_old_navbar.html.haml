@@ -1,0 +1,37 @@
+%nav.navbar.navbar-default
+  .container-fluid.navbar-container
+    .navbar-header
+      %button.navbar-toggle.collapsed{"data-target" => "#bs-navbar-collapse-1", "data-toggle" => "collapse", type: "button"}
+        %span.sr-only Toggle Navigation
+        %span.icon-bar
+        %span.icon-bar
+      .navbar-brand= link_to "WriteIt Community", root_path
+    .collapse.navbar-collapse#bs-navbar-collapse-1
+      - if user_signed_in?
+        %ul.nav.navbar-nav.navbar-right
+          %li
+            = render 'notifications/notification_dropdown'
+          %li
+            = link_to "Browse Posts", browse_microposts_path
+          %li
+            %a.dropdown-toggle
+              = render partial: "microposts/new_micropost_modal", locals: { micropost: Micropost.new }
+              = "New Post"
+              %span{"data-target" => "#newMicropostModal", "data-toggle" => "modal", style: "cursor: pointer; text-decoration: none;", class: "glyphicon glyphicon-plus"}
+              
+          %li.dropdown
+            %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+              Account
+              %b.caret
+            %ul.dropdown-menu
+              %li= link_to "Your Posts", profile_path(current_user.user_name)
+              %li= link_to "Edit", edit_profile_path(current_user.user_name)
+              %li.divider
+              %li= link_to "Log out", signout_path
+        %ul.nav.navbar-nav
+          %li= link_to "Timeline", microposts_path
+          %li= link_to "Users", users_path
+      - else
+        %ul.nav.navbar-nav.navbar-right
+          %li= link_to "Sign In", new_user_session_path, class: "active"
+        

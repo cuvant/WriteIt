@@ -1,0 +1,7 @@
+%center
+  %h3 Micropost Feed
+.posts-wrapper.row
+  - if @microposts.present?
+    %ol.microposts.list-unstyled
+      = render @microposts
+    = will_paginate @microposts

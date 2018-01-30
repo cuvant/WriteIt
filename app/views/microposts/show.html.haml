@@ -1,0 +1,5 @@
+= provide(:title, "Micropost")
+= render @micropost
+#static_map_index
+:javascript
+  window.writeit.microposts.use_mentioner("#{current_user.id}");

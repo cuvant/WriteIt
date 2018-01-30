@@ -1,0 +1,37 @@
+.div
+  .posts-wrapper{id: "microposts_#{micropost.id}"}
+    .post
+      .post-head
+        .thumb-img
+        .user-name
+          = link_to micropost.user.user_name, profile_path(micropost.user.user_name)
+        .time-ago
+          %strong{id: "likes_count_#{micropost.id}"}
+            = micropost.likers_count
+          %span{class: "glyphicon glyphicon-heart", style: "margin-right: 10px;"}
+          %span{style: "margin-right: 5px;"}
+            = link_to "", static_map_micropost_path(micropost), class: "glyphicon glyphicon-map-marker", style: "cursor: pointer; text-decoration: none;", remote: true
+          = time_ago_in_words micropost.created_at
+
+      .image.center-block
+        = link_to (image_tag micropost.picture.large.url, class:'img-responsive'), micropost_path(micropost)
+      .post-bottom
+        = render partial: "microposts/likes", locals: {micropost: micropost}
+        .caption
+          .caption-content
+            .user-name
+              = link_to micropost.user.user_name, profile_path(micropost.user.user_name)
+            = micropost.description
+          .comments{id: "comments_#{micropost.id}"}
+            - if micropost.comments.any?
+              .paginator{id: "#comments-paginator-#{micropost.id}"}
+                - unless micropost.comments.count <= 4
+                  = link_to "view all #{micropost.comments.count} comments", micropost_comments_path(micropost), remote: true, class: 'more-comments', data: {micropost_id: "#{micropost.id}", type: "html"}
+              = render micropost.comments.sort.last(4), micropost: micropost
+      .comment-like-form.row
+        .like-button.col-sm-1
+          = like_unlike_button micropost.id
+          
+        .comment-form.col-sm-11
+          = form_for [micropost, micropost.comments.build], remote: true do |f|
+            = f.text_field :content, placeholder: 'Add a comment...', autocomplete: "off", class: "comment_content", id: "comment_content_#{micropost.id}"

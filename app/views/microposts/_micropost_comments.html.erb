@@ -1,0 +1,46 @@
+<div class="detailBox">
+  <center><div class="titleBox">
+    <label>Comment Box</label>  
+  </div></center>
+  <div class="actionBox">
+    <ul class="commentList">
+      <% collection.each do |comment| %>
+      <%= "#{comment.user.first_name} #{comment.user.last_name}" %>
+      <li>
+        <div class="commenterImage">
+          <%= image_tag(comment.user.image, class: "commenterImage") %>
+        </div>
+        <div class="commentText">
+          <p><%= comment.content %></p>
+          <span class="date sub-text">
+            <%= time_ago_in_words(comment.created_at) %>
+            <% if current_user && can_delete_comments[comment.id] %>
+              <%= link_to "eit", edit_micropost_comment_path(@micropost, comment) %> 
+              <%= link_to "delete", micropost_comment_path(@micropost, comment), method: :delete,
+                                               data: { confirm: "You sure?" } %>
+            <% end %>
+          </span>
+        </div>
+      </li>
+      <% end %>
+    </ul>
+    <%= form_for [micropost, comment], html: {class: "form-inline"} do |f| %>
+      <% if @comment.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+          <ul>
+            <% @comment.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <div class="form-group new-comment-input">
+        <%= f.text_field :content, class: "form-control new-comment-input", placeholder: "Whats on your mind?" %>
+      </div>
+      <div class="form-group new-comment-btn">
+        <%= f.submit "Add", class: "btn btn-default" %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,3 @@
+= render 'micropost_dashboard', microposts: @microposts
+:javascript
+  window.writeit.microposts.use_mentioner("#{current_user.id}");

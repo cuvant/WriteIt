@@ -1,0 +1,5 @@
+- if @follow_recomandations.present?
+  .col-md-2.static
+    #sticky-sidebar.suggestions
+      %h4.grey Who to Follow
+      = render partial: "layouts/newsfeed/sidebar_right/follow_user", collection: @follow_recomandations

@@ -1,0 +1,51 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title= full_title(yield(:title))
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+    = action_cable_meta_tag
+    = favicon_link_tag 'favicon.ico'
+
+  %body
+    #lp-register
+      .container.wrapper
+        .row
+          .col-sm-5
+            .intro-texts
+              %h1.text-white WritIt Community !!!
+              %p
+                WriteIt is a social network management app that can help you to connect with people. The system offers a great amount of features such as News Feed, Chatting, Sharing moments.. the lost goes on.
+                %br
+                %br
+                What are you waiting for? Join the community and start having fun!
+              %button.btn.btn-primary Learn More
+          
+          - flash.each do |name, msg|
+            = content_tag(:div, msg, class: "alert alert-info")
+          = yield
+          
+        .row
+          .col-sm-6.col-sm-offset-6
+            / Social Icons
+            %ul.list-inline.social-icons
+              %li
+                %a{:href => "#{user_facebook_omniauth_authorize_path}"}
+                  %i.icon.ion-social-facebook
+              %li
+                %a{:href => "#"}
+                  %i.icon.ion-social-twitter
+              %li
+                %a{:href => "#"}
+                  %i.icon.ion-social-googleplus
+              %li
+                %a{:href => "#"}
+                  %i.icon.ion-social-pinterest
+              %li
+                %a{:href => "#"}
+                  %i.icon.ion-social-linkedin
+      
+      #spinner-wrapper
+        .spinner

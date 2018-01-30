@@ -1,0 +1,12 @@
+- online_followings = current_user.online_followings
+
+#chat-block
+  - if online_followings.present?
+    %div{id: "online-title", class: "title-online"}
+      = "Online followings"
+    %ul.online-users.list-inline
+      = render partial: "layouts/newsfeed/sidebar_left/online_user", collection: online_followings
+  - else
+    %div{id: "online-title", class: "title-offline"}
+      = "All followings offline"
+    %ul.online-users.list-inline

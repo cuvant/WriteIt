@@ -1,0 +1,8 @@
+.comment
+  .user-name
+    = raw "#{link_to comment.user.user_name, profile_path(comment.user.user_name)}:"
+  .comment-content
+    = raw comment.content
+  - if comment.user == current_user
+    = link_to delete_comment_micropost_comment_path(micropost, comment), remote: true do
+      %span(class="glyphicon glyphicon-remove delete-comment")
